@@ -1,6 +1,7 @@
 import express from 'express';
 import { CekBilangan, CekBilanganInRange } from '../modules/cek-bilangan';
 import * as User from '../models/user';
+var resp = require('../models/response');
 
 const ReadRoute = express.Router();
 
@@ -36,7 +37,8 @@ ReadRoute.get('/bilangan/:num', (req, res, next) => {
 });
 
 ReadRoute.get('/users', (req, res, next) => {
-  res.json(User.findAll());
+  const users = User.findAll();
+  resp.notOk(res, users);
 });
 
 ReadRoute.get('/users/:id', (req, res, next) => {
